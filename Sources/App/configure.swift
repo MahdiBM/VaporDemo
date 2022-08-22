@@ -17,9 +17,15 @@ public func configure(_ app: Application) throws {
 //        database: Environment.get("DATABASE_NAME") ?? "vapor_database"
 //    ), as: .psql)
     
-    try app.databases.use(.postgres(
-        url: Environment.get("DATABASE_URL") ?? ""
-    ), as: .psql)
+    if let databaseURL = Environment.get("DATABASE_URL"), var postgresConfig = PostgresConfiguration(url: databaseURL) {
+        postgresConfig.tlsConfiguration = .makeClientConfiguration()
+        postgresConfig.tlsConfiguration?.certificateVerification = .none
+        app.databases.use(.postgres(configuration: postgresConfig), as: .psql)
+    } else {
+        app.logger.critical(
+            "Can't connect to database @ URL \(Environment.get("DATABASE_URL") ?? "Null")"
+        )
+    }
 
     app.migrations.add(CreateTodo())
     
