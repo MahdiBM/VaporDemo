@@ -17,7 +17,7 @@ public func configure(_ app: Application) throws {
 //        database: Environment.get("DATABASE_NAME") ?? "vapor_database"
 //    ), as: .psql)
     
-    app.databases.use(.postgres(
+    try app.databases.use(.postgres(
         url: Environment.get("DATABASE_URL") ?? ""
     ), as: .psql)
 
