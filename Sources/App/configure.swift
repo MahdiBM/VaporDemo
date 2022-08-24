@@ -17,7 +17,8 @@ public func configure(_ app: Application) throws {
 //        database: Environment.get("DATABASE_NAME") ?? "vapor_database"
 //    ), as: .psql)
     
-    if let databaseURL = Environment.get("DATABASE_URL"), var postgresConfig = PostgresConfiguration(url: databaseURL) {
+    if let databaseURL = Environment.get("DATABASE_URL"),
+       var postgresConfig = PostgresConfiguration(url: databaseURL) {
         postgresConfig.tlsConfiguration = .makeClientConfiguration()
         postgresConfig.tlsConfiguration?.certificateVerification = .none
         app.databases.use(.postgres(configuration: postgresConfig), as: .psql)
