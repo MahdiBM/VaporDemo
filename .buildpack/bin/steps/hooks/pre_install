@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -f bin/pre_install ]; then
-  echo "-----> Running pre-install hook"
-  source ./bin/pre_install
-fi
