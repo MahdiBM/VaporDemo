@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if [ -f bin/pre_compile ]; then
+  echo "-----> Running pre-compile hook"
+  source ./bin/pre_compile
+fi
