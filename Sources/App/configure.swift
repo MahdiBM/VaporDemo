@@ -19,8 +19,6 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(CreateTodo())
     
-    try app.autoMigrate().wait()
-    
     app.views.use(.leaf)
     
     // register routes
